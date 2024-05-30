@@ -25,6 +25,8 @@ public class PlayerControllar : MonoBehaviour
 
     #endregion
 
+    private bool HighJump = false;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -88,7 +90,15 @@ public class PlayerControllar : MonoBehaviour
     {
         if(context.phase == InputActionPhase.Started)
         {
-            rb.AddForce(Vector2.up * JumpPower, ForceMode.Impulse);
+            if (HighJump)
+            {
+                rb.AddForce(Vector2.up * JumpPower * 3, ForceMode.Impulse);
+                HighJump = false;
+            }
+            else
+            {
+                rb.AddForce(Vector2.up * JumpPower, ForceMode.Impulse);
+            }
         }
     }
 
@@ -114,4 +124,20 @@ public class PlayerControllar : MonoBehaviour
     }
 
     #endregion
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Jump"))
+        {
+            HighJump = true;
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Jump"))
+        {
+            HighJump = false;
+        }
+    }
 }

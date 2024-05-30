@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Item_Jump
   m_EditorClassIdentifier: 
   DisplayName: "\uC810\uD504\uB300"
-  Discruption: "\uB192\uAC8C \uC810\uD504\uD569\uB2C8\uB2E4"
+  Discruption: "\uB2E4\uAC00\uAC00\uC11C \uC810\uD504\uD558\uBA74 \uB192\uAC8C \uC810\uD504\uB97C
+    \uD568"
   itemType: 0
   icon: {fileID: 0}
   dropRate: {fileID: 0}
