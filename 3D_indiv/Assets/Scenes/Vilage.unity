@@ -825,6 +825,7 @@ MonoBehaviour:
   minLook: -85
   maxLook: 85
   Sensititiy: 0.1
+  JumpHeight: 0.5
   animator: {fileID: 577774823}
 --- !u!54 &577774825
 Rigidbody:
@@ -1038,10 +1039,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
+  m_Radius: 0.2
+  m_Height: 1.6
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.7, z: 0}
 --- !u!114 &577774832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1749,7 +1750,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &891535451
 Transform:
   m_ObjectHideFlags: 0
@@ -1836,6 +1837,7 @@ MonoBehaviour:
   minLook: -100
   maxLook: 100
   Sensititiy: 0.2
+  JumpHeight: 0
   animator: {fileID: 0}
 --- !u!114 &891535456
 MonoBehaviour:

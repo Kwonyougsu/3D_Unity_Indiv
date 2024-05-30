@@ -21,6 +21,7 @@ public class PlayerControllar : MonoBehaviour
     public float Sensititiy;
     private Vector2 mouse;
 
+    
     #endregion
 
     
@@ -37,10 +38,14 @@ public class PlayerControllar : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
     }
+    private void Update()
+    {
+        UpdateAnimation();
+    }
     private void FixedUpdate()
     {
         Move();
-        UpdateAnimation();
+        CheckGrounded();
     }
 
     private void UpdateAnimation()
@@ -48,7 +53,6 @@ public class PlayerControllar : MonoBehaviour
         Vector3 horizontalMovement = new Vector3(rb.velocity.x, 0, rb.velocity.z);
         float currentSpeed = horizontalMovement.magnitude;
         animator.SetFloat("Speed", currentSpeed);
-        Debug.Log(currentSpeed);
     }
 
     private void LateUpdate()
@@ -95,10 +99,10 @@ public class PlayerControllar : MonoBehaviour
 
     #endregion
 
-    #region PlayerJump / ray를 적용하면 이상해짐, 이유를 모르겠습니다?
+    #region PlayerJump / ray를 적용하면 이상해짐, 이유를 모르겠습니다? => Ray가 짧아서 점프를 하지 않음 ray 수정함
     public void OnJump(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Started)
+        if(context.phase == InputActionPhase.Started && IsGrounded())
         {
             if (HighJump)
             {
@@ -109,6 +113,7 @@ public class PlayerControllar : MonoBehaviour
             {
                 rb.AddForce(Vector2.up * JumpPower, ForceMode.Impulse);
             }
+            animator.SetBool("Jump", true);
         }
     }
 
@@ -124,13 +129,23 @@ public class PlayerControllar : MonoBehaviour
 
         for (int i = 0; i < rays.Length; i++)
         {
-            if (Physics.Raycast(rays[i], 0.1f, groundLayerMask))
+            if (Physics.Raycast(rays[i], 0.14f, groundLayerMask))
             {
                 return true;
             }
         }
-
         return false;
+    }
+
+    private void CheckGrounded()
+    {
+        bool grounded = IsGrounded();
+        //animator.SetBool("IsGrounded", grounded);
+
+        if (grounded)
+        {
+            animator.SetBool("Jump", false);
+        }
     }
 
     #endregion
