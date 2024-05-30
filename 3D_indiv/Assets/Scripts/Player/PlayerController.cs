@@ -12,7 +12,7 @@ public class PlayerControllar : MonoBehaviour
     private bool HighJump = false;
     public MovingObject movingObject;
     private bool moving = false;
-
+    private Transform Parent;
 
     [Header("Look")]
     public Transform camara;
@@ -47,7 +47,6 @@ public class PlayerControllar : MonoBehaviour
     {
         Move();
         CheckGrounded();
-
     }
 
     private void UpdateAnimation()
@@ -79,13 +78,8 @@ public class PlayerControllar : MonoBehaviour
         Vector3 dir = transform.forward * curMovement.y + transform.right * curMovement.x;
         dir *= speed;
         dir.y = rb.velocity.y;
-     
-        rb.velocity = dir;
 
-        if (moving == true)
-        {
-            transform.position = movingObject.Moving();
-        }
+        rb.velocity = dir;
     }
     #endregion
 
@@ -156,7 +150,7 @@ public class PlayerControllar : MonoBehaviour
 
     #endregion
 
-    #region 점프대 접근하면 높게 점프, 아니면 일반점프 // 발판 올라가면 따라가기, 아니면 그냥 이동
+    #region 점프대 접근하면 높게 점프, 아니면 일반점프 // 발판 올라가면 따라 움직이기 / 올라가면 이속이 느려짐;
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Jump"))
@@ -165,9 +159,7 @@ public class PlayerControllar : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("MovingObject"))
         {
-            movingObject = movingObject.gameObject.GetComponent<MovingObject>();
-            moving = true;
-            
+            transform.SetParent(movingObject.transform);
         }
     }
 
@@ -178,9 +170,8 @@ public class PlayerControllar : MonoBehaviour
             HighJump = false;
         }
         if (collision.gameObject.CompareTag("MovingObject"))
-        {          
-            movingObject = null;
-            moving = false;
+        {
+            transform.SetParent(Parent);
         }
     }
     #endregion
