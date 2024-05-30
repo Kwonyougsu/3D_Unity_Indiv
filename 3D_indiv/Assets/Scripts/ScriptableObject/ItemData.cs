@@ -1,21 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum ItemType
+{
+    Equipable,
+    Consumable,
+    Resource
+}
+
+public enum ConsumableType
+{
+    Health,
+    Hunger
+}
+[SerializeField]
+public class ItemConsumableType
+{
+    public ConsumableType type;
+    public float value;
+}
 
 [CreateAssetMenu(fileName = "Item",menuName = "New Item")]
 
 public class ItemData : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("Info")]
+    public string DisplayName;
+    public string Discruption;
+    public ItemType itemType;
+    public Sprite icon;
+    public GameObject dropRate;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [Header("Stacking")]
+    public bool Canstack;
+    public int maxStackamount;
+
+    [Header("Consumable")]
+    public ItemConsumableType[] consumableTypes;
 }

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9823449855e674f8b845b07ba5a2f9, type: 3}
+  m_Name: Item_Box
+  m_EditorClassIdentifier: 
+  DisplayName: "\uBC15\uC2A4"
+  Discruption: "\uBC15\uC2A4\uC784"
+  itemType: 2
+  icon: {fileID: 21300000, guid: ad1d9629318637f4cba6375c1a3a0566, type: 3}
+  dropRate: {fileID: 5116437780002298726, guid: 32449176bc845f74ab98cbc95f68a80e, type: 3}
+  Canstack: 1
+  maxStackamount: 10
