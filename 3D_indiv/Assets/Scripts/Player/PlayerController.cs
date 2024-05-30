@@ -10,8 +10,9 @@ public class PlayerControllar : MonoBehaviour
     public float JumpPower;
     public LayerMask groundLayerMask;
     private bool HighJump = false;
+    public MovingObject movingObject;
+    private bool moving = false;
 
-    private Rigidbody rb;
 
     [Header("Look")]
     public Transform camara;
@@ -20,12 +21,12 @@ public class PlayerControllar : MonoBehaviour
     private float camCurLook;
     public float Sensititiy;
     private Vector2 mouse;
-
-    
     #endregion
 
+    private Rigidbody rb;
+    private Animator animator;
     
-    public Animator animator;
+
 
 
     private void Awake()
@@ -46,6 +47,7 @@ public class PlayerControllar : MonoBehaviour
     {
         Move();
         CheckGrounded();
+
     }
 
     private void UpdateAnimation()
@@ -77,8 +79,13 @@ public class PlayerControllar : MonoBehaviour
         Vector3 dir = transform.forward * curMovement.y + transform.right * curMovement.x;
         dir *= speed;
         dir.y = rb.velocity.y;
-        
+     
         rb.velocity = dir;
+
+        if (moving == true)
+        {
+            transform.position = movingObject.Moving();
+        }
     }
     #endregion
 
@@ -99,7 +106,7 @@ public class PlayerControllar : MonoBehaviour
 
     #endregion
 
-    #region PlayerJump / ray를 적용하면 이상해짐, 이유를 모르겠습니다? => Ray가 짧아서 점프를 하지 않음 ray 수정함
+    #region PlayerJump / ray를 적용하면 이상해짐, 이유를 모르겠습니다? => Ray가 짧아서 점프를 하지 않음 ray 길이 수정함
     public void OnJump(InputAction.CallbackContext context)
     {
         if(context.phase == InputActionPhase.Started && IsGrounded())
@@ -140,7 +147,6 @@ public class PlayerControllar : MonoBehaviour
     private void CheckGrounded()
     {
         bool grounded = IsGrounded();
-        //animator.SetBool("IsGrounded", grounded);
 
         if (grounded)
         {
@@ -150,12 +156,18 @@ public class PlayerControllar : MonoBehaviour
 
     #endregion
 
-    #region 점프대
+    #region 점프대 접근하면 높게 점프, 아니면 일반점프 // 발판 올라가면 따라가기, 아니면 그냥 이동
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Jump"))
         {
             HighJump = true;
+        }
+        if (collision.gameObject.CompareTag("MovingObject"))
+        {
+            movingObject = movingObject.gameObject.GetComponent<MovingObject>();
+            moving = true;
+            
         }
     }
 
@@ -164,6 +176,11 @@ public class PlayerControllar : MonoBehaviour
         if (collision.gameObject.CompareTag("Jump"))
         {
             HighJump = false;
+        }
+        if (collision.gameObject.CompareTag("MovingObject"))
+        {          
+            movingObject = null;
+            moving = false;
         }
     }
     #endregion
