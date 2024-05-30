@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,6 +9,7 @@ public class PlayerControllar : MonoBehaviour
     private Vector2 curMovement;
     public float JumpPower;
     public LayerMask groundLayerMask;
+    private bool HighJump = false;
 
     private Rigidbody rb;
 
@@ -25,11 +23,14 @@ public class PlayerControllar : MonoBehaviour
 
     #endregion
 
-    private bool HighJump = false;
+    
+    public Animator animator;
+
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -39,6 +40,15 @@ public class PlayerControllar : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
+        UpdateAnimation();
+    }
+
+    private void UpdateAnimation()
+    {
+        Vector3 horizontalMovement = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        float currentSpeed = horizontalMovement.magnitude;
+        animator.SetFloat("Speed", currentSpeed);
+        Debug.Log(currentSpeed);
     }
 
     private void LateUpdate()
@@ -63,7 +73,7 @@ public class PlayerControllar : MonoBehaviour
         Vector3 dir = transform.forward * curMovement.y + transform.right * curMovement.x;
         dir *= speed;
         dir.y = rb.velocity.y;
-
+        
         rb.velocity = dir;
     }
     #endregion
@@ -125,6 +135,7 @@ public class PlayerControllar : MonoBehaviour
 
     #endregion
 
+    #region Á¡ÇÁ´ë
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Jump"))
@@ -140,4 +151,7 @@ public class PlayerControllar : MonoBehaviour
             HighJump = false;
         }
     }
+    #endregion
+
+
 }
