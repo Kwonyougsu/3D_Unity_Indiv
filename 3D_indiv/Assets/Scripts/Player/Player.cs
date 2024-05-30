@@ -8,8 +8,6 @@ public class Player : MonoBehaviour
     public PlayerControllar controllar;
     public PlayerCondition condition;
 
-    public Vector3 initialPosition;
-
     public ItemData itemData;
     public Action Additem;
     private void Awake()
