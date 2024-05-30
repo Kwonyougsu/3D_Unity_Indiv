@@ -1,19 +1,20 @@
 using System;
-using System.Numerics;
 using UnityEngine;
-using Vector3 = UnityEngine.Vector3;
 
 public class Player : MonoBehaviour
 {
-    public PlayerControllar controllar;
+    public PlayerControllar controller;
     public PlayerCondition condition;
 
     public ItemData itemData;
     public Action Additem;
+
+    public Transform dropPosition;
+
     private void Awake()
     {
         CharacaterManager.Instance.player = this;
-        controllar = GetComponent<PlayerControllar>();
+        controller = GetComponent<PlayerControllar>();
         condition = GetComponent<PlayerCondition>();
     }
 }

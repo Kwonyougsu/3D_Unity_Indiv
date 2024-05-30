@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d9823449855e674f8b845b07ba5a2f9, type: 3}
   m_Name: Item_Jump
   m_EditorClassIdentifier: 
-  DisplayName: "\uC810\uD504\uB300"
-  Discruption: "\uB2E4\uAC00\uAC00\uC11C \uC810\uD504\uD558\uBA74 \uB192\uAC8C \uC810\uD504\uB97C
-    \uD568"
-  itemType: 0
+  displayName: "\uC810\uD504\uB300"
+  description: "\uC810\uD504\uD558\uBA74 \uB192\uAC8C \uB701\uB2C8\uB2E4"
+  type: 0
   icon: {fileID: 0}
-  dropRate: {fileID: 0}
-  Canstack: 0
-  maxStackamount: 0
+  dropPrefab: {fileID: 0}
+  canStack: 0
+  maxStackAmount: 0
+  consumables: []
+  equipPrefabs: {fileID: 0}

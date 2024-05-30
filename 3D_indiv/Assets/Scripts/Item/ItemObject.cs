@@ -8,7 +8,7 @@ public class ItemObject : MonoBehaviour, IInteractable
 
     public string GetInteractPrompt()
     {
-        string str = $"{data.DisplayName}\n{data.Discruption}";
+        string str = $"{data.displayName}\n{data.description}";
         return str;
     }
 

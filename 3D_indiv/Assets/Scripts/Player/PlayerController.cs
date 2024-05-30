@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,7 +12,6 @@ public class PlayerControllar : MonoBehaviour
     public LayerMask groundLayerMask;
     private bool HighJump = false;
     public MovingObject movingObject;
-    private bool moving = false;
     private Transform Parent;
 
     [Header("Look")]
@@ -21,14 +21,13 @@ public class PlayerControllar : MonoBehaviour
     private float camCurLook;
     public float Sensititiy;
     private Vector2 mouse;
+    public bool canLook = true;
     #endregion
 
+    public Action inventory;
     private Rigidbody rb;
     private Animator animator;
     
-
-
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -58,7 +57,11 @@ public class PlayerControllar : MonoBehaviour
 
     private void LateUpdate()
     {
-        CamaraLook();
+        if (canLook)
+        {
+            CamaraLook();
+        }
+        
     }
 
     #region Player Move
@@ -176,5 +179,21 @@ public class PlayerControllar : MonoBehaviour
     }
     #endregion
 
+    #region 인벤토리
+    public void OnInventoryButton(InputAction.CallbackContext callbackContext)
+    {
+        if (callbackContext.phase == InputActionPhase.Started)
+        {
+            inventory?.Invoke();
+            ToggleCursor();
+        }
+    }
 
+    void ToggleCursor()
+    {
+        bool toggle = Cursor.lockState == CursorLockMode.Locked;
+        Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
+        canLook = !toggle;
+    }
+    #endregion
 }

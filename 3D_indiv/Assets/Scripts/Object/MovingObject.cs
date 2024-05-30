@@ -17,7 +17,7 @@ public class MovingObject : MonoBehaviour
     }
     private void Start()
     {
-        movespeed = 0.1f;
+        movespeed = 5f;
         minX = -24.0f;
         maxX = 40.0f;
         movingRight = true;
